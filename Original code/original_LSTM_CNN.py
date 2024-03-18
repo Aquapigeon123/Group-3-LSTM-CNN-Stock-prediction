@@ -10,7 +10,7 @@ import os
 import pprint
 import tensorflow as tf
 filename = 'AAPL'
-stock = pd.read_csv('Data/' + filename + '.csv')
+stock = pd.read_csv('AAPL.csv')
 # scaler = preprocessing.MinMaxScaler()
 # scaled_values = scaler.fit_transform(stock.iloc[:,1:4])
 # stock.iloc[:,1:4] = scaled_values
@@ -69,7 +69,8 @@ model.add(Bidirectional(LSTM(200,return_sequences=False)))
 model.add(Dropout(0.5))
 model.add(Dense(1, activation='linear'))
 model.compile(optimizer='RMSprop', loss='mse')
-model.fit(train_X, train_label, validation_data=(test_X,test_label), epochs=40,batch_size=64,shuffle =False)
+model.fit(train_X, train_label, validation_data=(test_X,test_label), epochs=40,batch_size=64)
+vall_loss = model.history.history['val_loss']
 print(model.evaluate(test_X,test_label))
 # model.summary()
 predicted  = model.predict(test_X)
@@ -89,11 +90,6 @@ plt.show()
 # predicted  = model.predict(test_X)
 # test_label[:,0] = y_scaler.inverse_transform(test_label[:,0])
 # predicted = np.array(predicted[:,0]).reshape(-1,1)
-# predicted = y_scaler.inverse_transform(predicted)
-# plt.plot(test_label[:,0], color = 'black', label = ' Stock Price')
-# plt.plot(predicted, color = 'green', label = 'Predicted  Stock Price')
-# plt.title(' Stock Price Prediction')
-# plt.xlabel('Time')
-# plt.ylabel(' Stock Price')
-# plt.legend()
-# plt.show()
+# predicted = y
+df = pd.DataFrame({"Epochs": range(1, 41),
+                   "Validation Loss": vall_loss})

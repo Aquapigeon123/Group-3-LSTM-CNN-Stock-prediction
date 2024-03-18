@@ -15,8 +15,8 @@ from keras.layers import Conv1D,Flatten,MaxPooling1D,Bidirectional,LSTM,Dropout,
 from keras.layers import Dense,GlobalAveragePooling2D
 import matplotlib.pyplot as plt
 filename = 'AAPL'
-stock = pd.read_csv('Data/' + filename + '.csv')
-indicator_bb = BollingerBands(close=stock["Close"], n=20, ndev=2)
+stock = pd.read_csv('AAPL.csv')
+indicator_bb = BollingerBands(close=stock["Close"], window=20, window_dev=2)
 macd = MACD(close=stock["Close"])
 rsi = RSIIndicator(close=stock["Close"])
 ichi = IchimokuIndicator(high=stock["High"],low=stock["Low"])

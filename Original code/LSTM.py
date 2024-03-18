@@ -7,7 +7,7 @@ from keras.layers import Conv1D,MaxPool1D,Bidirectional,LSTM,Dropout,TimeDistrib
 from keras.layers import Dense,GlobalAveragePooling2D
 import matplotlib.pyplot as plt
 filename = 'AAPL'
-stock = pd.read_csv('Data/' + filename + '.csv')
+stock = pd.read_csv('AAPL.csv')
 scaler = preprocessing.MinMaxScaler()
 scaled_values = scaler.fit_transform(stock.iloc[:,1:4])
 stock.iloc[:,1:4] = scaled_values
@@ -44,7 +44,7 @@ model.add((LSTM(64,return_sequences=False)))
 model.add(Dense(16, activation='relu'))
 model.add(Dense(1, activation='linear'))
 model.compile(optimizer='RMSprop', loss='mse')
-model.fit(train_X, train_label, validation_data=(test_X,test_label), epochs=50,batch_size=64,shuffle=False)
+history = model.fit(train_X, train_label, validation_data=(test_X,test_label), epochs=50,batch_size=64,shuffle=False)
 print(model.evaluate(test_X,test_label))
 # model.summary()
 predicted  = model.predict(test_X)
